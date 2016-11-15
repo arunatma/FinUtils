@@ -27,7 +27,7 @@ shinyUI(navbarPage("Calculator Suite for Retirement",
     tabPanel("Annuity Calculator",
         sidebarLayout(
             sidebarPanel(
-                textInput("s1Corpus", "Current Corpus(in Mil):", 1),
+                textInput("s1Corpus", "Current Corpus:", 5000000),
                 sliderInput("s1Growth", "Corpus CAGR(%):", -5, 25, 10, 0.1),
                 sliderInput("s1Inflation", "Inflation(%):", -5, 25, 8, 0.1),
                 sliderInput("s1LagYears", "Corpus Untouched for (Years):", 0, 100, 0, 1),
@@ -35,8 +35,6 @@ shinyUI(navbarPage("Calculator Suite for Retirement",
             ),
             mainPanel(
                 fluidRow(
-                    plotlyOutput("annuityPlot"),
-                    br(),
                     dataTableOutput("annuityCalcTable")
                 )
             )
@@ -45,7 +43,7 @@ shinyUI(navbarPage("Calculator Suite for Retirement",
     tabPanel("Corpus Calculator",
         sidebarLayout(
             sidebarPanel(
-                textInput("s2Annuity", "Required Annuity(in Mil):", 1),
+                textInput("s2Annuity", "Required Annuity:", 1000000),
                 sliderInput("s2Growth", "Corpus CAGR(%):", -5, 25, 10, 0.1),
                 sliderInput("s2Inflation", "Inflation(%):", -5, 25, 8, 0.1),
                 sliderInput("s2LagYears", "Corpus Untouched for (Years):", 0, 100, 0, 1),
@@ -53,9 +51,7 @@ shinyUI(navbarPage("Calculator Suite for Retirement",
             ),
             mainPanel(
                 fluidRow(
-                    plotlyOutput("corpusPlot"),
-                    br(),
-                    dataTableOutput("corpusCalcTable")
+                    tableOutput("corpusCalcTable")
                 )
             )
         )

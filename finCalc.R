@@ -9,7 +9,7 @@ getAnnuity <- function(corpus, growth, inflation, lagYrs, years){
 # Years     : Years till which the corpus is expected to last 
 #
 # Output:
-# Annuity   : Maximum yearly annuity that can be withdrawn from corpus 
+# Annuity   : A list of maximum yearly annuity that can be withdrawn from corpus 
     annuity <- 10
     initVal <- corpus * (1 + growth/100) ^ lagYrs
     while(1){
@@ -37,8 +37,7 @@ getAnnuity <- function(corpus, growth, inflation, lagYrs, years){
             }
         }
     }
-    #return((annuity * (1 + inflation/100) ^ lagYrs) * ((1+inflation/100) ^ (1:(years-lagYrs))))
-    return(annuity)
+    return((annuity * (1 + inflation/100) ^ lagYrs) * ((1+inflation/100) ^ (1:(years-lagYrs))))
 }
 
 getCorpus <- function(annuity, growth, inflation, lagYrs, years){
@@ -89,14 +88,28 @@ getRetirementTable <- function(age, corpus, randomize, growth, sdg, expense,
 # To calculate the annuity given a corpus, corpus growth and inflation
 #
 # Inputs:
+# Age       : Current age of the person in Years 
 # Corpus    : The current Corpus Value
-# Growth    : Expected CAGR for the corpus 
+# randomize : Whether to randomize the growth number
+# Growth    : Expected CAGR for the corpus (mean growth, if randomize is TRUE)
+# sdg       : If yes to randomize, standard deviation (assuming normal dist.)
+# Expense   : Current Yearly expenditure
 # Inflation : Expected Inflation, with which annuity is to be adjusted yearly
-# LagYears  : Years till which the corpus is left untouched
-# Years     : Years till which the corpus is expected to last 
+# retireAge : Retirement Age in Years (not time till retirement)
+# lifeYrs   : The age till which, the corpus has to serve the individual
+# annualInv : Investment that is done annually
+# invGrowth : The committed yearly percentage increment to investment
+# saveAfterRetire : Whether the person is saving after retirement 
+#
+# Assumption: The investment is the amount remaining after accounting for 
+#             expense. So, till the age the person retires, expenditure is 
+#             shown as zero.
+#             Year number are end of year.  Networth captures the previous year 
+#             investment and corpus along with the growth in corpus
 #
 # Output:
-# Annuity   : Maximum yearly annuity that can be withdrawn from corpus 
+# Ret. Table: Retirement Table with 3 columns - Networth, Expenditure and 
+#             Investment
     totalYears <- lifeYrs - age
     accYrs <- retireAge - age
     
