@@ -18,6 +18,7 @@ shinyUI(navbarPage("Calculator Suite for Retirement",
             ),
             mainPanel(
                 fluidRow(
+                    radioButtons("showNetWorth", "Plot NetWorth?", c("No"=FALSE, "Yes"=TRUE)),
                     plotlyOutput("retirementPlot"),
                     dataTableOutput("retirementTable")
                 )

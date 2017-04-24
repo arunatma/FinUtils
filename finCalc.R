@@ -122,7 +122,7 @@ getRetirementTable <- function(age, corpus, randomize, growth, sdg, expense,
         netWorth <- (netWorth + invest) * (1 + gt/100)
         spend <- spend * (1 + inflation/100)        
         if(i <= accYrs){
-            curRow <- c(age + i, netWorth, 0, invest)
+            curRow <- c(age + i, netWorth, spend, invest)
         } else {
             netWorth <- netWorth - spend
             curRow <- c(age + i, netWorth, spend, invest)
